@@ -14,7 +14,7 @@
  * * Parant and Child Nodes:
  * ? The Node directly connected to a above called it's called parent.
  * ? Node directly connected below nodes that's are children
- * 
+ *  
  * * Edge:
  * ? A connection between two nodes in the tree
  * 
@@ -40,6 +40,11 @@
  * * File System (Represent hierarchiel file structure.)
  * * Network Routing (Represent network hierarchies.)
  * * Tries (Used for efficient storage and retrieval of strings)
+ * 
+ * ! Type of Tree:-
+ * 
+ * ? 
+ *  
  */
 
 
