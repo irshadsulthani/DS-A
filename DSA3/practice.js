@@ -6,12 +6,12 @@ class Node {
     }
 }
 
-class BSt{
+class BSt {
     constructor(){
-        this.root =  null
+        this.root = null
     }
     insert (value) {
-        let node = new Node(value)
+        const node = new Node(value)
         if (this.root === null) {
             this.root = node
             return
@@ -24,23 +24,46 @@ class BSt{
                     return
                 }
                 current = current.left
-            } else {
+            }else {
                 if (current.right === null) {
                     current.right = node
-                    return 
+                    return
                 }
-                current.right = current
+                current = current.right
             }
         }
     }
+    checkHeightAndBalanced(node = this.root){
+        if (node === null) {
+            return { height : 0, isBalnce : true }
+        }
+        const leftHeight = this.checkHeightAndBalanced(node.left)
+        const rightHeight = this.checkHeightAndBalanced(node.right)
+
+        const height =  Math.max(leftHeight.height, rightHeight.height) + 1
+
+        const isBalnce = leftHeight.isBalnce && rightHeight.isBalnce && Math.abs(leftHeight.height - rightHeight.height) <= 1
+
+        return {height , isBalnce}
+    }
+    isBalnced(){
+        return this.checkHeightAndBalanced().isBalnce
+    }
+    getHeight() {
+        return this.checkHeightAndBalanced().height
+    }
 }
 
-const bs = new BSt()
 
-bs.insert(5)
-bs.insert(2)
-bs.insert(1)
-bs.insert(10)
+const b1 = new BSt()
 
-console.log(bs);
+b1.insert(20)
+b1.insert(30)
+b1.insert(10)  
+b1.insert(40)
 
+console.log(b1);
+
+console.log('The tree height is :', b1.getHeight());
+
+console.log('is Balanced :',b1.isBalnced());
