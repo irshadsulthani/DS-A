@@ -45,6 +45,8 @@ class BSt {
         const isBalnce = leftHeight.isBalnce && rightHeight.isBalnce && Math.abs(leftHeight.height - rightHeight.height) <= 1
 
         return {height , isBalnce}
+
+        
     }
     isBalnced(){
         return this.checkHeightAndBalanced().isBalnce
