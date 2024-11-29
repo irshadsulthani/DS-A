@@ -46,6 +46,9 @@ class BSt {
 
         return {height , isBalnce}
     }
+
+
+    
     isBalnced(){
         return this.checkHeightAndBalanced().isBalnce
     }
