@@ -1,18 +1,18 @@
 class Node {
-    constructor(value){
-        this.value = value
-        this.left = null
+    constructor (value) {
+        this.value = value;
+        this.left = null;
         this.right = null
     }
 }
 
-class BSt {
-    constructor(){
+class BST {
+    constructor () {
         this.root = null
     }
     insert (value) {
-        const node = new Node(value)
-        if (this.root === null) {
+        let node = new Node(value)
+        if (!this.root) {
             this.root = node
             return
         }
@@ -33,37 +33,27 @@ class BSt {
             }
         }
     }
-    checkHeightAndBalanced(node = this.root){
-        if (node === null) {
-            return { height : 0, isBalnce : true }
+    checkHeight(node = this.root) {
+        if (!node) {
+            return -1
         }
-        const leftHeight = this.checkHeightAndBalanced(node.left)
-        const rightHeight = this.checkHeightAndBalanced(node.right)
+        const leftHeight = this.checkHeight(node.left)
+        const rightHeight = this.checkHeight(node.right)
 
-        const height =  Math.max(leftHeight.height, rightHeight.height) + 1
-
-        const isBalnce = leftHeight.isBalnce && rightHeight.isBalnce && Math.abs(leftHeight.height - rightHeight.height) <= 1
-
-        return {height , isBalnce}
-    }
-    isBalnced(){
-        return this.checkHeightAndBalanced().isBalnce
-    }
-    getHeight() {
-        return this.checkHeightAndBalanced().height
+        return Math.max(leftHeight, rightHeight) + 1
     }
 }
 
 
-const b1 = new BSt()
+const b1 = new BST()
 
-b1.insert(20)
 b1.insert(30)
-b1.insert(10)  
+b1.insert(10)
+b1.insert(20)
 b1.insert(40)
+b1.insert(50)
+
 
 console.log(b1);
 
-console.log('The tree height is :', b1.getHeight());
-
-console.log('is Balanced :',b1.isBalnced());
+console.log('the height of the tree is :', b1.checkHeight());

@@ -34,6 +34,25 @@ class BST{
             }
         }
     }
+    checkHeightAndBalanced(node = this.root){
+        if (node === null) {
+            return { height : 0, isBalnce : true }
+        }
+        const leftHeight = this.checkHeightAndBalanced(node.left)
+        const rightHeight = this.checkHeightAndBalanced(node.right)
+
+        const height =  Math.max(leftHeight.height, rightHeight.height) + 1
+
+        const isBalnce = leftHeight.isBalnce && rightHeight.isBalnce && Math.abs(leftHeight.height - rightHeight.height) <= 1
+
+        return {height , isBalnce}
+    }
+    isBalnced(){
+        return this.checkHeightAndBalanced().isBalnce
+    }
+    getHeight() {
+        return this.checkHeightAndBalanced().height
+    }
     heightCheck(node = this.root){
         if (node === null) {
             return -1
