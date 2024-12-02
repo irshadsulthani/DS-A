@@ -1,18 +1,18 @@
 class Node {
-    constructor (value) {
-        this.value = value;
-        this.left = null;
+    constructor(value){
+        this.value = value
+        this.left = null
         this.right = null
     }
 }
 
 class BST {
-    constructor () {
+    constructor(){
         this.root = null
     }
-    insert (value) {
-        let node = new Node(value)
-        if (!this.root) {
+    insert(value) {
+        const node = new Node(value)
+        if(!this.root){
             this.root = node
             return
         }
@@ -33,14 +33,48 @@ class BST {
             }
         }
     }
-    checkHeight(node = this.root) {
-        if (!node) {
-            return -1
+    heightAndBalanceCheck(node = this.root) {
+        if (node === null) {
+            return { height : 0 , Balance: true }
         }
-        const leftHeight = this.checkHeight(node.left)
-        const rightHeight = this.checkHeight(node.right)
+        const leftHeight = this.heightAndBalanceCheck(node.left)
+        const rightHeight = this.heightAndBalanceCheck(node.right)
 
-        return Math.max(leftHeight, rightHeight) + 1
+        const height = Math.max(leftHeight.height, rightHeight.height) + 1
+        
+        const Balance = leftHeight.Balance && rightHeight.Balance && Math.abs(leftHeight.height - rightHeight-height) <= 1
+
+        return { height, Balance }
+    }
+    getHeight(){
+        return this.heightAndBalanceCheck().height
+    }
+    getBalance(){
+        return this.heightAndBalanceCheck().Balance
+    }
+    preOrder(node = this.root){
+        if (node === null) {
+            return 'nothing'
+        }
+        console.log(node.value);
+        this.preOrder(node.left)
+        this.preOrder(node.right)
+    }
+    postOrder(node = this.root) {
+        if (node === null) {
+            return 'Nothing to print'
+        }
+        this.postOrder(node.left)
+        this.postOrder(node.right)
+        console.log(node.value);
+    }
+    inOrder(node = this.root) {
+        if (node === null) {
+            return 'Nothing to print'
+        }
+        this.inOrder(node.left)
+        console.log(node.value);
+        this.inOrder(node.right)
     }
 }
 
@@ -48,12 +82,26 @@ class BST {
 const b1 = new BST()
 
 b1.insert(30)
+b1.insert(60)
 b1.insert(10)
 b1.insert(20)
-b1.insert(40)
-b1.insert(50)
+b1.insert(150)
+b1.insert(7)
+b1.insert(8)
+console.log('its the pre order');
 
+b1.preOrder()
+
+console.log('posst order is this');
+b1.postOrder()
 
 console.log(b1);
 
-console.log('the height of the tree is :', b1.checkHeight());
+console.log('the height is :',b1.getHeight());
+console.log('is blanace :', b1.getBalance());
+
+console.log('iin Order');
+
+b1.inOrder()
+
+
