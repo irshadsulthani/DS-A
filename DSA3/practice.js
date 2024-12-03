@@ -79,6 +79,8 @@ class BST {
     bfs(node = this.root) {
         if (!node) {
             return []
+
+            
         }
         const queue = [node]
         const result = []
