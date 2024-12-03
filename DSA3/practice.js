@@ -42,7 +42,7 @@ class BST {
 
         const height = Math.max(leftHeight.height, rightHeight.height) + 1
         
-        const Balance = leftHeight.Balance && rightHeight.Balance && Math.abs(leftHeight.height - rightHeight-height) <= 1
+        const Balance = leftHeight.Balance && rightHeight.Balance && Math.abs(leftHeight.height - rightHeight.height) <= 1
 
         return { height, Balance }
     }
@@ -76,6 +76,21 @@ class BST {
         console.log(node.value);
         this.inOrder(node.right)
     }
+    bfs(node = this.root) {
+        if (!node) {
+            return []
+        }
+        const queue = [node]
+        const result = []
+        while (queue.length > 0) {
+            const node1 = queue.shift()
+            result.push(node1.value)
+
+            if(node1.left) queue.push(node1.left)
+            if (node1.right) queue.push(node1.right)    
+        }
+    return result
+    }
 }
 
 
@@ -85,7 +100,7 @@ b1.insert(30)
 b1.insert(60)
 b1.insert(10)
 b1.insert(20)
-b1.insert(150)
+// b1.insert(150)
 b1.insert(7)
 b1.insert(8)
 console.log('its the pre order');
@@ -103,5 +118,11 @@ console.log('is blanace :', b1.getBalance());
 console.log('iin Order');
 
 b1.inOrder()
+
+
+console.log('BFS order or Level Order');
+
+console.log(b1.bfs());
+
 
 
