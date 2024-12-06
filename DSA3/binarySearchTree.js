@@ -34,73 +34,63 @@ class BST{
             }
         }
     }
-    checkHeightAndBalanced(node = this.root){
-        if (node === null) {
-            return { height : 0, isBalnce : true }
+   
+    findMin(node = this.root) {
+        if(!node) return null;
+        while (node.left) {
+            node = node.left
         }
-        const leftHeight = this.checkHeightAndBalanced(node.left)
-        const rightHeight = this.checkHeightAndBalanced(node.right)
-
-        const height =  Math.max(leftHeight.height, rightHeight.height) + 1
-
-        const isBalnce = leftHeight.isBalnce && rightHeight.isBalnce && Math.abs(leftHeight.height - rightHeight.height) <= 1
-
-        return {height , isBalnce}
+        return node.value
     }
-    isBalnced(){
-        return this.checkHeightAndBalanced().isBalnce
-    }
-    getHeight() {
-        return this.checkHeightAndBalanced().height
-    }
-    heightCheck(node = this.root){
-        if (node === null) {
-            return -1
+    findMax(node = this.root) {
+        if (!node ) {
+            return null
         }
-        let leftHeight = this.heightCheck(node.left)
-        let rightHeight = this.heightCheck(node.right)
-
-        return Math.max(leftHeight,rightHeight) + 1
-    } 
-    preOrder(node = this.root) {
-        if (!node) {
-            return 'Nothing'
+        while (node.right) {
+            node = node.right
         }
-        console.log(node.value);
-        this.preOrder(node.left)
-        this.preOrder(node.right)
+        return node.value
     }
-    postOrder(node = this.root) {
-        if (!node) {
-            return 'no'
+    findCloset(target, node = this.root) {
+        let closet = node.value
+        while (node) {
+            if (Math.abs(target - closet) > Math.abs(target - node.value)) {
+                closet = node.value
+            }
+            if (target < node.value) {
+                node = node.left
+            }else if (target > node.value) {
+                node = node.right
+            }else{
+                break;
+            }
         }
-        this.postOrder(node.left)
-        this.postOrder(node.right)
-        console.log(node.value);
+        return closet;
     }
-    inOrder(node = this.root) {
-        if (!node) {
-            return 'Nothing'
+    delete(value, node = this.root) {
+     if (!node ) {
+        return null
+     }   
+     if (value < node.value) {
+        node.left = this.delete(value , node.left)
+     }else if (value > node.value) {
+        node.right = this.delete(value, node.right)
+     }else{
+        if (!node.left && !node.right) {
+            return null
         }
-        this.inOrder(node.left)
-        console.log(node.value);
-        this.inOrder(node.right)
-    }
-    bfs(node = this.root ) {
-        if (!node) {
-            return []
+        if (!node.left) {
+            return node.right
         }
-        const queue = [node]
-        const result = []
-        while (queue.length > 0) {
-            const node1 = queue.shift()
-            result.push(node1.value)
-
-            if(node1.left) queue.push(node1.left)
-            if(node1.right) queue.push(node1.right)
+        if (!node.right) {
+            return node.left
         }
-    return result
-    }
+        let success = this.findMin(node.right)
+        node.value = success
+        node.right = this.delete(success, node.right)
+     }
+     return node
+   }
 }
 
 const b1 = new BST()
@@ -123,5 +113,15 @@ console.log(b1);
 console.log('BFS order or level order');
 
 console.log(b1.bfs());
+b1.delete(50)
+console.log(b1.bfs());
+
+
+// console.log('Max value',b1.findMin());
+// console.log('min value',b1.findMax());
+// console.log('Close value', b1.findCloset(90));
+
+
+
 
 
