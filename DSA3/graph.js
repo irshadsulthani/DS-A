@@ -16,10 +16,10 @@ class Graph {
         }
     }
     dfs(start) {
-        const result = []
-        const visit = new Set()
+        let result = []
+        let visit = new Set()
 
-        function explore(vertex) {
+        const explore = (vertex) =>{
             if (!visit.has(vertex)) {
                 visit.add(vertex)
                 result.push(vertex)
@@ -28,7 +28,21 @@ class Graph {
                 }
             }
         }
-        explore.call(this, start)
-        return result;
+        explore(start)
+        return result
     }
 }
+
+const g = new Graph()
+
+g.addVertex('A')
+g.addVertex('B')
+g.addVertex('C')
+g.addVertex('D')
+
+g.addEdge('A','B')
+g.addEdge('B','C')
+g.addEdge('C','D')
+
+console.log(g.dfs('A'));
+
