@@ -13,8 +13,6 @@ function heapify(arr, n, i) {
         heapify(arr, n, largest)
     }
 
-
-    
 }
 
 function heapSort(arr) {
