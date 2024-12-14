@@ -29,7 +29,7 @@ class Trie {
         }
         return node.endOfWord
     }
-    stratWith(prefix) {
+    stratsWith(prefix) {
         let node = this.root;
         for(const char of prefix) {
             if (!node.child[char]) {
@@ -39,13 +39,33 @@ class Trie {
         }
         return true
     }
+    findLargePrefix(word){
+        let node = this.root;
+        let prefix = '';
+    
+        for (let char of word) {
+            if (node.child[char]) {
+                prefix += char;
+                node = node.child[char];
+            } else {
+                break;
+            }
+        }
+        
+        return prefix;
+    }
+    
 }
 
 const t1 = new Trie()
 
-t1.insert('irshad')
-t1.insert('cat')
-console.log(t1.stratWith('f'));
-console.log(t1.stratWith('irs'));
-console.log(t1.search('irshad'));
-console.log(t1.search('ir'));
+t1.insert('appleisgood')
+t1.insert('appendies')
+t1.insert('app')
+t1.insert('appeil')
+console.log(t1.findLargePrefix('app'));
+  // returns 'app' (correct)
+console.log(t1.findLargePrefix('applepie'));
+  // returns 'apple'
+
+

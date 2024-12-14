@@ -12,7 +12,7 @@ class BST{
     }
     insert(value){
         let node = new Node(value)
-
+        
         if(this.root === null){
             this.root = node
             return;
